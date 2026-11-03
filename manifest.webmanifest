@@ -1,0 +1,9 @@
+{
+  "name": "Aethelgard \u2014 The Chrono-Journal",
+  "short_name": "Aethelgard",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#11100f",
+  "theme_color": "#11100f",
+  "description": "A private space for journaling and reflection."
+}

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11100f">
+  <meta name="description" content="A private, thoughtful space for journaling and reflection.">
+  <title>Aethelgard — The Chrono-Journal</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">A</div>
+        <div><div class="brand-name">AETHELGARD</div><div class="brand-sub">THE CHRONO-JOURNAL</div></div>
+      </div>
+      <button class="new-entry" id="newEntryBtn"><span>＋</span> New entry</button>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-item active" data-view="journal"><span>◫</span> Journal</button>
+        <button class="nav-item" data-view="timeline"><span>⌁</span> Timeline</button>
+        <button class="nav-item" data-view="connections"><span>⌘</span> Connections</button>
+        <button class="nav-item" data-view="insights"><span>◇</span> Stoic Mirror</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="local-status"><span class="status-dot"></span><span>Stored on this device</span></div>
+        <button class="nav-item" data-view="settings"><span>⚙</span> Settings</button>
+        <div class="sidebar-foot">YOUR THOUGHTS. YOUR OWN.</div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-brand" id="mobileMenuBtn" aria-label="Open navigation">☰</button>
+        <div class="breadcrumb">AETHELGARD <span>/</span> <b id="sectionName">JOURNAL</b></div>
+        <div class="top-actions">
+          <span class="save-state" id="saveState">All changes saved</span>
+          <button class="icon-button" id="exportBtn" title="Export journal" aria-label="Export journal">⇩</button>
+        </div>
+      </header>
+
+      <section class="view active" id="journalView">
+        <div class="page-heading">
+          <div><p class="eyebrow">THE PRIVATE RECORD</p><h1>Your journal</h1><p class="muted">A place to think without interruption.</p></div>
+          <div class="date-display" id="todayDate"></div>
+        </div>
+        <div class="journal-layout">
+          <section class="entry-list-panel">
+            <div class="list-tools"><input id="searchInput" class="search-input" type="search" placeholder="Search entries…"><span id="entryCount" class="count-label">0 ENTRIES</span></div>
+            <div id="entryList" class="entry-list"></div>
+            <div id="emptyList" class="empty-state"><div class="empty-symbol">✧</div><h3>Your pages are waiting.</h3><p>Begin with a thought, a question, or simply what happened today.</p><button class="text-button" id="firstEntryBtn">Write your first entry →</button></div>
+          </section>
+
+          <section class="editor-panel" id="editorPanel">
+            <div class="editor-empty" id="editorEmpty"><div class="empty-symbol large">✦</div><h2>Select an entry</h2><p>Or create a new page to begin writing.</p></div>
+            <div class="editor-content hidden" id="editorContent">
+              <div class="editor-meta"><span id="entryDateLabel">TODAY</span><span id="wordCount">0 WORDS</span></div>
+              <input id="entryTitle" class="title-input" placeholder="Untitled entry" maxlength="140" aria-label="Entry title">
+              <div class="editor-toolbar">
+                <div class="format-tools" id="formatTools">
+                  <button data-command="bold" title="Bold"><b>B</b></button>
+                  <button data-command="italic" title="Italic"><i>I</i></button>
+                  <button data-command="underline" title="Underline"><u>U</u></button>
+                  <span class="tool-divider"></span>
+                  <button data-command="formatBlock" data-value="h2" title="Heading">H</button>
+                  <button data-command="insertUnorderedList" title="Bullet list">☷</button>
+                  <button data-command="insertOrderedList" title="Numbered list">1.</button>
+                  <button data-command="blockquote" title="Quote">❝</button>
+                </div>
+                <div class="mode-switch"><button class="mode-btn active" data-mode="rich">Write</button><button class="mode-btn" data-mode="markdown">Markdown</button></div>
+              </div>
+              <div id="richEditor" class="writing-surface" contenteditable="true" spellcheck="true" data-placeholder="Let your thoughts take shape…"></div>
+              <textarea id="markdownEditor" class="writing-surface markdown-surface hidden" spellcheck="true" placeholder="Write in Markdown…"></textarea>
+              <div class="editor-footer"><div class="tag-area"><span class="tag-icon">#</span><input id="tagInput" placeholder="Add tags, separated by commas"></div><button class="delete-button" id="deleteEntryBtn">Delete entry</button></div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view secondary-view" id="timelineView"><p class="eyebrow">THE PASSAGE OF TIME</p><h1>Timeline</h1><p class="muted">Your writing, arranged as a record of days and years.</p><div id="timelineItems" class="timeline-items"></div></section>
+      <section class="view secondary-view" id="connectionsView"><p class="eyebrow">THE THREADS BETWEEN IDEAS</p><h1>Connections</h1><p class="muted">Use shared tags to discover entries that belong to the same line of thought.</p><div id="connectionItems" class="connection-items"></div></section>
+      <section class="view secondary-view" id="insightsView"><p class="eyebrow">A MANUAL EXERCISE IN REFLECTION</p><h1>Stoic Mirror</h1><p class="muted">Analysis is always initiated by you. Nothing is analyzed automatically.</p><div class="insight-card"><h2>Reflect on an entry</h2><p>Choose a page and ask Aethelgard to help you examine recurring ideas, assumptions, contradictions, or changes in perspective. This first version keeps the exercise local and uses guided prompts rather than sending your writing to a service.</p><select id="insightEntry" class="select-input"><option value="">Choose an entry…</option></select><button id="analyzeBtn" class="primary-button">Begin reflection</button><div id="insightResult" class="insight-result"></div></div></section>
+      <section class="view secondary-view" id="settingsView"><p class="eyebrow">MAKE THE SPACE YOURS</p><h1>Settings</h1><div class="settings-card"><h2>Appearance</h2><label for="themeSelect">Theme</label><select id="themeSelect" class="select-input"></select><p class="muted small">Your selection is saved on this device.</p></div><div class="settings-card cloud-card"><h2>Google Drive vault</h2><p>Connect your Google account to create a private Aethelgard folder in your own Drive. Your journal is encrypted in this browser before it is uploaded.</p>
+          <div class="cloud-status" id="cloudStatus"><span class="status-dot"></span><span>Not connected</span></div>
+          <button id="googleConnectBtn" class="secondary-button">Connect Google Drive</button>
+          <div class="vault-fields"><label for="vaultPassphrase">Aethelgard vault passphrase</label><input id="vaultPassphrase" class="select-input" type="password" minlength="10" autocomplete="new-password" placeholder="Use at least 10 characters"><label for="vaultPassphraseConfirm">Confirm passphrase (first setup only)</label><input id="vaultPassphraseConfirm" class="select-input" type="password" minlength="10" autocomplete="new-password" placeholder="Re-enter your passphrase"></div>
+          <button id="vaultSetupBtn" class="primary-button">Create / unlock encrypted vault</button>
+          <button id="syncNowBtn" class="secondary-button" disabled>Sync now</button>
+          <p class="muted small" id="vaultHelp">Use the same passphrase on every device. It is never sent to Google. If you forget it, the encrypted journal cannot be recovered.</p>
+          <hr class="settings-rule"><h3>Local backup</h3><button id="backupBtn" class="secondary-button">Download journal backup (.json)</button><button id="importBtn" class="secondary-button">Restore from backup</button><input type="file" id="importFile" accept="application/json" hidden>
+        </div></section>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="config.js"></script>
+  <script src="vault-crypto.js"></script>
+  <script src="app.js"></script>
+  <script src="google-cloud.js"></script>
+</body>
+</html>
